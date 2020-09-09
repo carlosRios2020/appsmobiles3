@@ -18,7 +18,8 @@ server.app.use( cors({ origin: true, credentials: true}));
 //rutas de la app
 
 server.app.use('/user', userRoutes);
-
+server.app.use('/crear', userRoutes);
+server.app.use('/login', userRoutes);
 
 
 // Conectar DB
@@ -27,10 +28,9 @@ dB.start();
 
 dB.con.query("SELECT * FROM usuario", function (err, result) {
     if (err) throw err;
-    console.log(result[0].nombre);
+    console.log("datos correctos");
   });
 //levantar express
-
 
 server.start( () =>
 {

@@ -20,7 +20,7 @@ export class UsuarioService {
       const data = {email, password};
 
       return new Promise(  resolve => {
-      this.http.post('http://localhost:3000/user/login',data)
+      this.http.post('http://localhost:3706/user/login',data)
               .subscribe(resp =>{
                 console.log(resp);
 
@@ -33,8 +33,6 @@ export class UsuarioService {
                   resolve(false);
                 }
               })
-
-
       });
       
   }

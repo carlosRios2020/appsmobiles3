@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var Server = /** @class */ (function () {
     function Server() {
-        this.port = 3000;
+        this.port = 3706;
         this.app = express_1.default();
     }
     Server.prototype.start = function (callback) {
