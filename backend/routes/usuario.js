@@ -51,8 +51,8 @@ userRoutes.post('/create', function (req, res) {
     var query = dBServer_1.dB.con.query(sql, function (err, result) {
         console.log(err, result);
         /*const  tokenUser = Token.getJwtToken({
-            nombre: result[0].nombre,
-            email: result[0].email,
+            nombre: req.body.nombre,
+            email: req.body.email,
 
         });*/
         return res.json({

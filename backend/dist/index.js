@@ -15,13 +15,15 @@ server.app.use(body_parser_1.default.json());
 server.app.use(cors_1.default({ origin: true, credentials: true }));
 //rutas de la app
 server.app.use('/user', usuario_1.default);
+server.app.use('/crear', usuario_1.default);
+server.app.use('/login', usuario_1.default);
 // Conectar DB
 //const dB = new dBServer()
 dBServer_1.dB.start();
 dBServer_1.dB.con.query("SELECT * FROM usuario", function (err, result) {
     if (err)
         throw err;
-    console.log(result[0].nombre);
+    console.log("datos correctos");
 });
 //levantar express
 server.start(function () {

@@ -17,8 +17,8 @@ userRoutes.post('/login', function (req, res) {
             var login = bcrypt_1.default.compareSync(body.password, result[0].password);
             if (login) {
                 var tokenUser = token_1.default.getJwtToken({
-                //nombre: result[0].nombre,
-                // email: result[0].email,
+                    nombre: result[0].nombre,
+                    email: result[0].email,
                 });
                 res.json({
                     ok: true,
@@ -53,13 +53,13 @@ userRoutes.post('/create', function (req, res) {
     var sql = "INSERT INTO usuario (nombre, email, password) VALUES ('" + user.nombre + "', '" + user.email + "', '" + user.password + "')";
     var query = dBServer_1.dB.con.query(sql, function (err, result) {
         console.log(err, result);
-        /*const  tokenUser = Token.getJwtToken({
-            nombre: result[0].nombre,
-            email: result[0].email,
-
-        });*/
+        var tokenUser = token_1.default.getJwtToken({
+            nombre: req.body.nombre,
+            email: req.body.email,
+        });
         return res.json({
             ok: true,
+            token: tokenUser
         });
     });
     query.on('error', function (err) {
@@ -73,6 +73,23 @@ userRoutes.post('/update', function (req, res) {
         email: req.body.email,
     };
     var sql = "UPDATE usuario SET nombre = '" + user.nombre + "' WHERE email = '" + user.email + "'";
+    var query = dBServer_1.dB.con.query(sql, function (err, result) {
+        console.log(err, result);
+        return res.json({
+            ok: true,
+            usuario: req.usuario
+        });
+    });
+    query.on('error', function (err) {
+        console.log("[mysql error]", err);
+    });
+});
+userRoutes.post('/delete', function (req, res) {
+    //verificaToken,
+    var user = {
+        email: req.body.email,
+    };
+    var sql = "DELETE from usuario WHERE email = '" + user.email + "'";
     var query = dBServer_1.dB.con.query(sql, function (err, result) {
         console.log(err, result);
         return res.json({
