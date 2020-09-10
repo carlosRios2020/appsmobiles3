@@ -52,6 +52,7 @@ export class LoginPage implements OnInit {
     }else{
         //mostrar alert
         this.UiservicesService.alertaInformativa('Usuario o Contraseña no son correctos');
+        
     }
   }
 
@@ -59,8 +60,11 @@ export class LoginPage implements OnInit {
   registro(){
     //console.log(fRegistro.valid);
     this.UsuarioService.create(this.datos.value);
-    this.navCtrl.navigateRoot('/main/tabs/tab2', {animated: true});
-
+    if(this.datos.value != undefined){
+      this.mostrarLogin();
+    }else{
+      this.mostrarRegistro();
+    }
   }
 
   mostrarLogin(){
