@@ -12,7 +12,7 @@ var dBServer = /** @class */ (function () {
             host: "localhost",
             user: "admin",
             password: "admin",
-            database: "prueba"
+            database: "appmovil"
         });
     }
     dBServer.prototype.start = function () {

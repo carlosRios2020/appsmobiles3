@@ -8,7 +8,7 @@ class dBServer{
         host: "localhost",
         user: "admin",
         password: "admin",
-        database: "prueba"
+        database: "appmovil"
         });
 
     constructor(){

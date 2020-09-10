@@ -14,11 +14,11 @@ userRoutes.post('/login', function (req, res) {
     var query = dBServer_1.dB.con.query("SELECT * FROM usuario WHERE email = '" + body.email + " '", function (err, result) {
         console.log(err, result);
         if (result.length > 0) {
-            var login = bcrypt_1.default.compareSync(body.password, result[0].password);
+            var login = bcrypt_1.default.compare(body.password, result[0].password);
             if (login) {
                 var tokenUser = token_1.default.getJwtToken({
-                    nombre: result[0].nombre,
-                    email: result[0].email,
+                    nombre: req.body.nombre,
+                    email: req.body.email,
                 });
                 res.json({
                     ok: true,
@@ -85,7 +85,6 @@ userRoutes.post('/update', function (req, res) {
     });
 });
 userRoutes.post('/delete', function (req, res) {
-    //verificaToken,
     var user = {
         email: req.body.email,
     };
