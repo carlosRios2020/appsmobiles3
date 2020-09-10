@@ -1,8 +1,11 @@
 import { Component, OnInit, ViewChild, ReflectiveInjector } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm,FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { IonSlides, NavController } from '@ionic/angular';
 import { UsuarioService } from '../../services/usuario.service';
 import { UiservicesService } from '../../services/uiservices.service';
+
+
+
 
 @Component({
   selector: 'app-login',
@@ -10,21 +13,28 @@ import { UiservicesService } from '../../services/uiservices.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  
+  datos:FormGroup;
+  constructor(private formBuilder: FormBuilder, private UsuarioService: UsuarioService,
+    private navCtrl: NavController,
+    private UiservicesService: UiservicesService) { }
+ 
+  ngOnInit() {
+    this.datos = this.formBuilder.group({
+      nombre: ['', [Validators.required, Validators.minLength(6)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+      
+    });
+  }
 
   @ViewChild('slidePrincipal') slides: IonSlides;
 
   loginUser = {
-      email: 'Pedro8@123.com',
-      password: '123456'
+      email: 'xxxxx@123.com',
+      password: 'xxxxx'
   }
 
-  constructor(private UsuarioService: UsuarioService,
-                private navCtrl: NavController,
-                private UiservicesService: UiservicesService) { }
-
-  ngOnInit( ) {
-    
-  }
 
   ionViewDidEnter(){
     this.slides.lockSwipes(true);
@@ -45,8 +55,12 @@ export class LoginPage implements OnInit {
     }
   }
 
-  registro(fRegistro: NgForm){
-    console.log(fRegistro.valid);
+  
+  registro(){
+    //console.log(fRegistro.valid);
+    this.UsuarioService.create(this.datos.value);
+    this.navCtrl.navigateRoot('/main/tabs/tab2', {animated: true});
+
   }
 
   mostrarLogin(){

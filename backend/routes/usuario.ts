@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {Request, Response } from 'express';
+import { Request, Response } from 'express';
 import  bcrypt from 'bcrypt';
 import {dB} from '../classes/dBServer';
 import Token from '../classes/token';
@@ -16,7 +16,7 @@ userRoutes.post('/login',  (req: Request, res: Response) => {
     var query = dB.con.query("SELECT * FROM usuario WHERE email = '" + body.email +" '", (err, result) => {
         console.log(err, result);
         if (result.length>0){
-         var login = bcrypt.compareSync( body.password,result[0].password)
+         var login = bcrypt.compare( body.password,result[0].password)
             
             if (login){
 
@@ -103,8 +103,7 @@ userRoutes.post('/update',  (req: any, res: Response) => {
     
 });
 userRoutes.post('/delete',  (req: any, res: Response) => {
-    //verificaToken,
-   
+ 
     const user = {
         email: req.body.email,
     }
